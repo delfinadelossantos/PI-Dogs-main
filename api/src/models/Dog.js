@@ -48,7 +48,7 @@ module.exports = (sequelize) => {
       },
     },
     {
-      timestamps: false,
+      timestamps: false, //Sino Sequelize crea por defecto hora y fecha de creación
     }
   );
 };
