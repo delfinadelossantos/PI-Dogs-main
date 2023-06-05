@@ -18,7 +18,17 @@ const getDogHandler = (req, res) => {
   } catch (error) {}
 };
 
-const createDogHandler = (req, res) => {};
+const createDogHandler = (req, res) => {
+  const {
+    breed,
+    min_height,
+    max_height,
+    min_weight,
+    max_weight,
+    life_span,
+    temperament,
+  } = req.body;
+};
 
 module.exports = {
   getDogHandler,
