@@ -1,3 +1,5 @@
+const { createDogController } = require("../controllers/dogsControllers");
+
 const getDogsHandler = (req, res) => {
   //llama a la función que obtiene los datos de la BDD
   //llama a la función que obtiene los datos de la API externa
@@ -28,6 +30,15 @@ const createDogHandler = (req, res) => {
     life_span,
     temperament,
   } = req.body;
+  const newDog = createDogController(
+    breed,
+    min_height,
+    max_height,
+    min_weight,
+    max_weight,
+    life_span,
+    temperament
+  );
 };
 
 module.exports = {
