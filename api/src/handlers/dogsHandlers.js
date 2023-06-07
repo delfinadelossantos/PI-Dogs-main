@@ -20,25 +20,24 @@ const getDogHandler = (req, res) => {
   } catch (error) {}
 };
 
-const createDogHandler = (req, res) => {
-  const {
-    breed,
-    min_height,
-    max_height,
-    min_weight,
-    max_weight,
-    life_span,
-    temperament,
-  } = req.body;
-  const newDog = createDogController(
-    breed,
-    min_height,
-    max_height,
-    min_weight,
-    max_weight,
-    life_span,
-    temperament
-  );
+const createDogHandler = async (req, res) => {
+  try {
+    const { breed, min_height, max_height, min_weight, max_weight, life_span } =
+      req.body;
+
+    const newDog = await createDogController(
+      breed,
+      min_height,
+      max_height,
+      min_weight,
+      max_weight,
+      life_span
+    );
+
+    res.status(201).json(newDog);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 module.exports = {
