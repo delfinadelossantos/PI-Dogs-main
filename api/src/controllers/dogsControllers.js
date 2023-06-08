@@ -2,6 +2,9 @@ const { Dog, Temperament } = require("../db");
 
 //Las funciones que interactúan con el modelo (los métodos de un modelo manejan promesas)
 //son async await
+
+const getDogByIdController = (id) => {};
+
 const createDogController = async (
   breed,
   min_height,
@@ -22,4 +25,4 @@ const createDogController = async (
   return newDog;
 };
 
-module.exports = { createDogController };
+module.exports = { getDogByIdController, createDogController };

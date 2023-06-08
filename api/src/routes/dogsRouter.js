@@ -4,7 +4,7 @@ const dogsRouter = Router();
 
 const {
   getDogsHandler,
-  getDogHandler,
+  getDogByIdHandler,
   createDogHandler,
 } = require("../handlers/dogsHandlers");
 
@@ -23,7 +23,7 @@ dogsRouter.get("/", getDogsHandler);
 // La raza es recibida por parámetro (ID).
 // Tiene que incluir los datos de los temperamentos asociadas a esta raza.
 // Debe funcionar tanto para los perros de la API como para los de la base de datos.
-dogsRouter.get("/:id", getDogHandler);
+dogsRouter.get("/:id", getDogByIdHandler);
 
 // POST | /dogs
 // Esta ruta recibirá todos los datos necesarios para crear un nuevo perro y relacionarlo con los temperamentos asociados.
