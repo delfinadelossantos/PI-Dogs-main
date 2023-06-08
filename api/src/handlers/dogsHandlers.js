@@ -1,4 +1,7 @@
-const { createDogController } = require("../controllers/dogsControllers");
+const {
+  getDogByIdController,
+  createDogController,
+} = require("../controllers/dogsControllers");
 
 const getDogsHandler = (req, res) => {
   //llama a la función que obtiene los datos de la BDD
@@ -13,18 +16,25 @@ const getDogsHandler = (req, res) => {
   }
 };
 
-const getDogHandler = (req, res) => {
+const getDogByIdHandler = async (req, res) => {
+  const { id } = req.params;
+  if (isNaN(id)) {
+    //El id que viene por params es de la base de datos (UUID)
+  } else {
+    //El id es de la API
+  }
   try {
-    const { id } = req.params;
-    res.status(200).send(`Send detail about dog with id ${id}`);
-  } catch (error) {}
+    const dog = await getDogByIdController(id);
+    res.status(200).send(dog);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 const createDogHandler = async (req, res) => {
+  const { breed, min_height, max_height, min_weight, max_weight, life_span } =
+    req.body;
   try {
-    const { breed, min_height, max_height, min_weight, max_weight, life_span } =
-      req.body;
-
     const newDog = await createDogController(
       breed,
       min_height,
@@ -41,7 +51,7 @@ const createDogHandler = async (req, res) => {
 };
 
 module.exports = {
-  getDogHandler,
+  getDogByIdHandler,
   getDogsHandler,
   createDogHandler,
 };
