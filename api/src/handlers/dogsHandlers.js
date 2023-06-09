@@ -1,19 +1,28 @@
 const {
+  getAllBreedsController,
+  getDogByBreedController,
   getDogByIdController,
   createDogController,
 } = require("../controllers/dogsControllers");
 
-const getDogsHandler = (req, res) => {
+const getAllDogsHandler = async (req, res) => {
   //llama a la función que obtiene los datos de la BDD
   //llama a la función que obtiene los datos de la API externa
   //une los datos unificando el formato de ambas
   //responde con todos los datos.
-  const { breed } = req.query;
-  if (breed) {
-    res.status(200).send(`Send all dogs with breed ${breed}`);
-  } else {
-    res.status(200).send("Send all dogs");
+  try {
+    const dogs = await getAllBreedsController();
+    res.status(200).json(dogs);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
+};
+
+const getDogByBreedHandler = async (req, res) => {
+  const { breed } = req.query;
+  try {
+    const results = getDogByBreedController(breed);
+  } catch (error) {}
 };
 
 const getDogByIdHandler = async (req, res) => {
@@ -47,6 +56,7 @@ const createDogHandler = async (req, res) => {
 
 module.exports = {
   getDogByIdHandler,
-  getDogsHandler,
+  getDogByBreedHandler,
+  getAllDogsHandler,
   createDogHandler,
 };

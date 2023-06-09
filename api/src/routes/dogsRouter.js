@@ -3,20 +3,22 @@ const { Router } = require("express");
 const dogsRouter = Router();
 
 const {
-  getDogsHandler,
+  getAllDogsHandler,
+  getDogByBreedHandler,
   getDogByIdHandler,
   createDogHandler,
 } = require("../handlers/dogsHandlers");
 
 // GET | /dogs
 // Obtiene un arreglo de objetos, donde cada objeto es la raza de un perro.
-// INCLUYE:
+dogsRouter.get("/", getAllDogsHandler);
+
 // GET | /dogs/name?="..."
 // Esta ruta debe obtener todas aquellas razas de perros que coinciden con el nombre recibido por query. (No es necesario que sea una coincidencia exacta).
 // Debe poder buscarlo independientemente de mayúsculas o minúsculas.
 // Si no existe la raza, debe mostrar un mensaje adecuado.
 // Debe buscar tanto los de la API como los de la base de datos.
-dogsRouter.get("/", getDogsHandler);
+dogsRouter.get("/search", getDogByBreedHandler);
 
 // GET | /dogs/:idRaza
 // Esta ruta obtiene el detalle de una raza específica. Es decir que devuelve un objeto con la información pedida en el detalle de un perro.
