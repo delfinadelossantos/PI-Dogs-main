@@ -18,11 +18,6 @@ const getDogsHandler = (req, res) => {
 
 const getDogByIdHandler = async (req, res) => {
   const { id } = req.params;
-  if (isNaN(id)) {
-    //El id que viene por params es de la base de datos (UUID)
-  } else {
-    //El id es de la API
-  }
   try {
     const dog = await getDogByIdController(id);
     res.status(200).send(dog);
