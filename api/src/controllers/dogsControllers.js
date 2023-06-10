@@ -35,7 +35,23 @@ const getAllBreedsController = async () => {
   return [...databaseDogs, ...apiDogs];
 };
 
-const getDogByBreedController = () => {};
+const getDogByBreedController = async (breed) => {
+  //Buscar en la base de datos
+  const databaseBreedSearch = await Dog.findOne({ where: { breed: "breed" } });
+  //Si no lo encuentra en la base de datos, lo busca en la api
+  if (databaseBreedSearch === null) {
+    const apiBreedSearch = (
+      await axios.get(`https://api.thedogapi.com/v1/breeds/search?q={${breed}}`)
+    ).data;
+    //Verificar si la api no encuentra la raza:
+    if (apiBreedSearch.length === 0) {
+      return null;
+    }
+    const apiBreed = cleanApiInfo(apiBreedSearch);
+    return apiBreed;
+  }
+  return databaseBreedSearch;
+};
 
 const getDogByIdController = async (id) => {
   let dog;
