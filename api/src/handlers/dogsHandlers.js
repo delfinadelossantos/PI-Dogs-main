@@ -21,8 +21,19 @@ const getAllDogsHandler = async (req, res) => {
 const getDogByBreedHandler = async (req, res) => {
   const { breed } = req.query;
   try {
-    const results = getDogByBreedController(breed);
-  } catch (error) {}
+    if (breed) {
+      const results = await getDogByBreedController(breed);
+      if (results !== null || results !== undefined) {
+        res.status(200).json(results);
+      } else {
+        res.status(400).json({ error: "The requested breed does not exist" });
+      }
+    } else {
+      res.status(400).json({ error: "No breed specified" });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 const getDogByIdHandler = async (req, res) => {
