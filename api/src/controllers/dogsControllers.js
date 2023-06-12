@@ -1,5 +1,6 @@
 const { Dog, Temperament } = require("../db");
 const axios = require("axios");
+const { Op } = require("sequelize");
 
 //Las funciones que interactúan con el modelo (los métodos de un modelo manejan promesas)
 //son async await
@@ -12,7 +13,7 @@ const cleanApiInfo = (array) => {
     return {
       id: element.id,
       breed: element.name,
-      image: element.image.url,
+      image: element.reference_image_id,
       min_height: parseInt(heightRange[0]),
       max_height: parseInt(heightRange[1]),
       min_weight: parseInt(weightRange[0]),
@@ -36,21 +37,29 @@ const getAllBreedsController = async () => {
 };
 
 const getDogByBreedController = async (breed) => {
+  let result = [];
   //Buscar en la base de datos
-  const databaseBreedSearch = await Dog.findOne({ where: { breed: "breed" } });
-  //Si no lo encuentra en la base de datos, lo busca en la api
-  if (databaseBreedSearch === null) {
-    const apiBreedSearch = (
-      await axios.get(`https://api.thedogapi.com/v1/breeds/search?q={${breed}}`)
-    ).data;
-    //Verificar si la api no encuentra la raza:
-    if (apiBreedSearch.length === 0) {
-      return null;
-    }
-    const apiBreed = cleanApiInfo(apiBreedSearch);
-    return apiBreed;
+  const databaseBreedSearch = await Dog.findAll({
+    where: { breed: { [Op.iLike]: `${breed}` } },
+  });
+
+  if (
+    databaseBreedSearch !== undefined &&
+    databaseBreedSearch !== null &&
+    databaseBreedSearch.length !== 0
+  ) {
+    result.concat(databaseBreedSearch);
   }
-  return databaseBreedSearch;
+
+  //Buscar en la API
+  const apiBreedSearch = (
+    await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${breed}`)
+  ).data;
+
+  const apiBreed = cleanApiInfo(apiBreedSearch);
+  result.push(apiBreed);
+
+  return result;
 };
 
 const getDogByIdController = async (id) => {

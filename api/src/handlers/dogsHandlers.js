@@ -19,7 +19,9 @@ const getAllDogsHandler = async (req, res) => {
 };
 
 const getDogByBreedHandler = async (req, res) => {
-  const { breed } = req.query;
+  const { name } = req.query;
+  const breed = name.toLowerCase();
+  //console.log(breed);
   try {
     if (breed) {
       const results = await getDogByBreedController(breed);
