@@ -6,6 +6,9 @@ const getApiInfo = require("../utils/getApiInfo");
 const saveToDb = async () => {
   try {
     const temperaments = await getApiInfo();
+    if (temperaments.error) {
+      return temperaments.error;
+    }
     await Temperament.bulkCreate(temperaments);
     return temperaments;
   } catch (error) {
