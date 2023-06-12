@@ -12,7 +12,7 @@ const cleanApiInfo = (array) => {
     return {
       id: element.id,
       breed: element.name,
-      image: element.reference_image_id,
+      image: element.image.url,
       min_height: parseInt(heightRange[0]),
       max_height: parseInt(heightRange[1]),
       min_weight: parseInt(weightRange[0]),
