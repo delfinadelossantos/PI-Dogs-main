@@ -35,5 +35,3 @@ const getApiInfo = async () => {
 };
 
 module.exports = getApiInfo;
-
-//Acá no me falta aclarar que temperament: element.temperament?
