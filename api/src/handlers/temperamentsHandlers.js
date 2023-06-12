@@ -1,3 +1,5 @@
+const getTemperamentsController = require("../controllers/temperamentsControllers");
+
 const getTemperamentsHandler = async (req, res) => {
   try {
     const temperaments = await getTemperamentsController();
