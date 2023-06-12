@@ -56,12 +56,36 @@ const getDogByBreedController = async (breed) => {
 const getDogByIdController = async (id) => {
   let dog;
   if (isNaN(id)) {
-    dog = await Dog.findByPk(id);
+    dog = await Dog.findByPk(id, {
+      include: {
+        model: Temperament,
+        attributes: ["temperament"],
+        through: { attributes: [] },
+      },
+    });
   } else {
     const response = await axios.get(
       `https://api.thedogapi.com/v1/breeds/${id}`
     );
-    dog = response.data;
+    const element = response.data;
+    //La api, en caso de haberlo encontrado, devuelve un solo objeto (el que matchea con el id)
+    //Actualización del objeto para tener la data necesaria y no toda la que brinda la api.
+    const heightRange = element.height.metric.split(" - ");
+    const weightRange = element.weight.metric.split(" - ");
+
+    dog = {
+      id: element.id,
+      breed: element.name,
+      image: element.image ? element.image.url : null,
+      min_height: parseInt(heightRange[0]),
+      max_height: parseInt(heightRange[1]),
+      min_weight: parseInt(weightRange[0]),
+      max_weight: parseInt(weightRange[1]),
+      life_span: element.life_span,
+      temperaments: element.temperament,
+      createdInDb: false,
+    };
+    return dog;
   }
   return dog;
 };
