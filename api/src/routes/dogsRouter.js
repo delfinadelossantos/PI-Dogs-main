@@ -9,6 +9,8 @@ const {
   createDogHandler,
 } = require("../handlers/dogsHandlers");
 
+const { validateDog } = require("../middlewares/index");
+
 // GET | /dogs
 // Obtiene un arreglo de objetos, donde cada objeto es la raza de un perro.
 dogsRouter.get("/", getAllDogsHandler);
@@ -31,6 +33,7 @@ dogsRouter.get("/:id", getDogByIdHandler);
 // Esta ruta recibirá todos los datos necesarios para crear un nuevo perro y relacionarlo con los temperamentos asociados.
 // Toda la información debe ser recibida por body.
 // Debe crear la raza de perro en la base de datos, y esta debe estar relacionada con los temperamentos indicados (al menos uno).
-dogsRouter.post("/", createDogHandler);
+//Si pasa el next() de validateDog, pasa al Handler
+dogsRouter.post("/", validateDog, createDogHandler);
 
 module.exports = dogsRouter;
