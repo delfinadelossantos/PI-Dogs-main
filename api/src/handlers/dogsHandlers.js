@@ -49,16 +49,26 @@ const getDogByIdHandler = async (req, res) => {
 };
 
 const createDogHandler = async (req, res) => {
-  const { breed, min_height, max_height, min_weight, max_weight, life_span } =
-    req.body;
+  const {
+    breed,
+    image,
+    min_height,
+    max_height,
+    min_weight,
+    max_weight,
+    life_span,
+    temperamentIds,
+  } = req.body;
   try {
     const newDog = await createDogController(
       breed,
+      image,
       min_height,
       max_height,
       min_weight,
       max_weight,
-      life_span
+      life_span,
+      temperamentIds
     );
 
     res.status(201).json(newDog);

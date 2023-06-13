@@ -101,21 +101,57 @@ const getDogByIdController = async (id) => {
 
 const createDogController = async (
   breed,
+  image,
   min_height,
   max_height,
   min_weight,
   max_weight,
-  life_span
+  life_span,
+  temperamentIds
 ) => {
-  const newDog = await Dog.create({
+  let newDog = await Dog.create({
     breed,
+    image,
     min_height,
     max_height,
     min_weight,
     max_weight,
     life_span,
   });
-  return newDog;
+  const temperamentDatabase = await Temperament.findByPk(temperamentIds);
+  await newDog.addTemperament(temperamentDatabase);
+
+  //newDog es una instancia del modelo de sequelize
+  newDog = await Dog.findByPk(newDog.id, {
+    include: [
+      {
+        model: Temperament,
+        attributes: ["temperament"],
+      },
+    ],
+  });
+
+  //Acá hago una copia del objeto newDog y edito el json para que
+  //tenga el formato deseado en la respuesta del servidor
+  let formattedResponse = {
+    //El .get() es un método de Sequelize que permite obtener un objeto
+    //sólo con los datos de la instancia del modelo.
+    //El operador spread toma todo lo existente en newDog y las
+    //agrega a formattedResponse.
+    ...newDog.get(),
+    temperaments: newDog.Temperaments.map(({ temperament }) => ({
+      temperament,
+    })),
+  };
+
+  //el objeto formattedResponse se creó inicialmente copiando todas las propiedades de
+  //newDog.get(). Entonces incluye la propiedad "Temperaments" original.
+  //elimina la propiedad "Temperaments" original del objeto formattedResponse,
+  //dejando solo la propiedad "temperaments" modificada que contiene los nombres de los temperamentos.
+
+  delete formattedResponse["Temperaments"];
+
+  return formattedResponse;
 };
 
 module.exports = {
