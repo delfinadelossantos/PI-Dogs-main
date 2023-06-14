@@ -1,9 +1,28 @@
-import './App.css';
+import "./App.css";
+import { Route } from "react-router-dom";
+import { Detail, Form, Home, Landing } from "./views";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Dogs</h1>
+      <NavBar></NavBar>
+
+      <Route exact path="/">
+        <Landing />
+      </Route>
+
+      <Route path="/home">
+        <Home />
+      </Route>
+
+      <Route path="/detail">
+        <Detail />
+      </Route>
+
+      <Route path="/form">
+        <Form />
+      </Route>
     </div>
   );
 }
