@@ -12,14 +12,14 @@ const validateDog = (req, res, next) => {
     life_span,
     temperamentIds,
   } = req.body;
-  if (!breed) return res.status(400).json({ error: "missing breed" });
-  if (!min_height) return res.status(400).json({ error: "missing min_height" });
-  if (!max_height) return res.status(400).json({ error: "missing max_height" });
-  if (!min_weight) return res.status(400).json({ error: "missing min_weight" });
-  if (!max_weight) return res.status(400).json({ error: "missing max_weight" });
-  if (!life_span) return res.status(400).json({ error: "missing life_span" });
+  if (!breed) res.status(400).json({ error: "missing breed" });
+  if (!min_height) res.status(400).json({ error: "missing min_height" });
+  if (!max_height) res.status(400).json({ error: "missing max_height" });
+  if (!min_weight) res.status(400).json({ error: "missing min_weight" });
+  if (!max_weight) res.status(400).json({ error: "missing max_weight" });
+  if (!life_span) res.status(400).json({ error: "missing life_span" });
   if (!temperamentIds)
-    return res.status(400).json({ error: "missing temperamentIds" });
+    res.status(400).json({ error: "missing temperamentIds" });
   //Si no entra en el if (están todos los datos) que continúe
   next();
 };
