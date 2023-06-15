@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./reducer";
-//thunkMiddleware es quien permite hacer las requests al server
+//thunkMiddleware es quien permite hacer las requests al server,
+//operaciones asíncronas que redux por sí solo no puede hacer.
 import thunkMiddleware from "redux-thunk";
 
 //El "composeador" del middleware es window. redux devtools en caso de que esté
