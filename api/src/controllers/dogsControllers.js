@@ -19,6 +19,7 @@ const cleanApiInfo = (array) => {
       min_weight: parseInt(weightRange[0]),
       max_weight: parseInt(weightRange[1]),
       life_span: element.life_span,
+      temperaments: element.temperament,
       createdInDb: false,
     };
   });
