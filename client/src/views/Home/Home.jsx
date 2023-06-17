@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { getDogs } from "../../redux/actions";
 
 const Home = () => {
+  //Hook para obtener la función dispatch que permite enviar las actions
+  //desde el componente al reducer
   const dispatch = useDispatch();
 
   //useEffect recibe una función que se ejecuta cuando el componente se
