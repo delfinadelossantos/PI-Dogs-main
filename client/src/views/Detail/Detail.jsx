@@ -27,6 +27,7 @@ const Detail = () => {
     //dependencias. (componentDidUpdate)
   }, [id]);
 
+  console.log(breed);
   return (
     <div>
       {breed.breed ? (

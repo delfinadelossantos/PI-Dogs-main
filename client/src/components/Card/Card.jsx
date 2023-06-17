@@ -6,10 +6,10 @@ const Card = (props) => {
   console.log(props);
   return (
     <div key={props.id} className={style.card}>
-      <p>{props.image}</p>
       <p>
         Breed: <Link to={`/dogs/${props.id}`}>{props.breed}</Link>
       </p>
+      <img src={props.image} alt="img" />
       <p>Temperaments: {props.temperaments}</p>
       <p>Min Weight: {props.min_weight} kg</p>
       <p>Max Weight: {props.max_weight} kg</p>
@@ -18,8 +18,3 @@ const Card = (props) => {
 };
 
 export default Card;
-
-// Imagen.
-// Nombre.
-// Temperamentos.
-// Peso.
