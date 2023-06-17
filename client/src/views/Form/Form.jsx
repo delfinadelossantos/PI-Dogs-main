@@ -1,7 +1,19 @@
 import { useState } from "react";
+import axios from "axios";
 
 const Form = () => {
   const [form, setForm] = useState({
+    breed: "",
+    min_height: 0,
+    max_height: 0,
+    min_weight: 0,
+    max_weight: 0,
+    life_span: "",
+    temperaments: [],
+    image: "",
+  });
+
+  const [errors, setErrors] = useState({
     breed: "",
     min_height: 0,
     max_height: 0,
@@ -21,13 +33,39 @@ const Form = () => {
     const property = event.target.name;
     const value = event.target.value;
 
+    //Valida lo mismo que el estado para que valide en el momento y no haya un delay
+    validate({ ...form, [property]: value });
+
     //Una vez que tenga los valores, necesito modificar el estado en aquella
     //propiedad que se haya cambiado con el valor indicado
     setForm({ ...form, [property]: value });
   };
 
+  //Función que valida si al hacer un cambio, lo que se ingresa al input es correcto
+  const validate = (form) => {
+    //Acá hago validaciones con if.
+    //el error se guarda en setErrors y se muestra
+    //ejemplo:
+    //   if(regex.test(form.algo)){
+    //     setErrors({...errors, algo:""}){
+    //       else{
+    //         setErrors({...errors, algo:"hay un error en el nombre"})
+    //       }
+    //     }
+    //   }
+    //   if(form.algo==="") setErrors({errors, algo: "campo vacío"})
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const response = axios
+      .post("http://localhost:3001/dogs", form)
+      .then((res) => alert(res))
+      .catch((error) => alert(error));
+  };
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div>
         <label>Breed: </label>
         <input
@@ -37,7 +75,7 @@ const Form = () => {
           name="breed"
         />
       </div>
-
+      {/* Acá iría un span (chequear si corresponde ese tag) informando el {errors.algo} del validate */}
       <div>
         <label>Minimum Height: </label>
         <input
@@ -107,6 +145,7 @@ const Form = () => {
           name="image"
         />
       </div>
+      <button type="submit">SUBMIT</button>
     </form>
   );
 };
