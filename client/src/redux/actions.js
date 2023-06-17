@@ -3,6 +3,7 @@ export const GET_DOGS = "GET_DOGS";
 export const SEARCH_DOG = "SEARCH_DOG";
 export const GET_DOG_DETAIL = "GET_DOG_DETAIL";
 export const FILTER_BY_SOURCE = "FILTER_BY_SOURCE";
+export const CLEAN_DETAIL = "CLEAN_DETAIL";
 
 export const getDogs = () => {
   return async function (dispatch) {
@@ -23,9 +24,14 @@ export const searchDog = (name) => {
 
 export const getDogDetail = (id) => {
   return async function (dispatch) {
-    const detail = await axios.get(`http://localhost:3001/dogs/${id}`);
-    dispatch({ type: GET_DOG_DETAIL, payload: detail.data });
+    const dogDetail = await axios.get(`http://localhost:3001/dogs/${id}`);
+    const detail = dogDetail.data;
+    dispatch({ type: GET_DOG_DETAIL, payload: detail });
   };
+};
+
+export const cleanDetail = () => {
+  return { type: CLEAN_DETAIL };
 };
 
 export const filterBySource = () => {

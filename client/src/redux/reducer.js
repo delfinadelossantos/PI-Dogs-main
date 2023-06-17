@@ -1,7 +1,7 @@
 //El reducer es una función que recibe el estado a modificar y la action
 //que indica qué tiene que hacer.
 
-import { GET_DOGS, SEARCH_DOG, GET_DOG_DETAIL } from "./actions";
+import { GET_DOGS, SEARCH_DOG, GET_DOG_DETAIL, CLEAN_DETAIL } from "./actions";
 
 //El estado global al principio de la aplicación es el initialState
 const initialState = {
@@ -21,6 +21,8 @@ const rootReducer = (state = initialState, action) => {
     //   return { ...state, breeds: action.payload };
     case GET_DOG_DETAIL:
       return { ...state, breedDetail: action.payload };
+    case CLEAN_DETAIL:
+      return { ...state, breedDetail: {} };
     default:
       return { ...state };
   }

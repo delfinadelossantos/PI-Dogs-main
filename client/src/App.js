@@ -21,7 +21,7 @@ function App() {
         <Home />
       </Route>
 
-      <Route path="/detail">
+      <Route path="/dogs/:id">
         <Detail />
       </Route>
 

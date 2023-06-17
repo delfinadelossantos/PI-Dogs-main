@@ -16,6 +16,7 @@ const CardsContainer = () => {
         return (
           // Aquí Card recibe props
           <Card
+            id={breed.id}
             image={breed.image}
             breed={breed.breed}
             temperaments={breed.temperaments}
@@ -30,8 +31,4 @@ const CardsContainer = () => {
 
 export default CardsContainer;
 
-// Imagen.
-// Nombre.
-// Temperamentos.
-// Peso.
 // 8 perros por pag.
