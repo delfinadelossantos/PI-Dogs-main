@@ -1,3 +1,5 @@
+import { getDogDetail } from "../../redux/actions";
+
 const Detail = () => {
   return (
     <>
@@ -7,3 +9,11 @@ const Detail = () => {
 };
 
 export default Detail;
+
+// ID.
+// Imagen.
+// Nombre.
+// Altura.
+// Peso.
+// Temperamentos.
+// Años de vida.

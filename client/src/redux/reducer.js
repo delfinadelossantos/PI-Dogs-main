@@ -6,6 +6,7 @@ import { GET_DOGS, SEARCH_DOG, GET_DOG_DETAIL } from "./actions";
 //El estado global al principio de la aplicación es el initialState
 const initialState = {
   breeds: [],
+  breedDetail: {},
 };
 
 //Cuando la aplicación recién inicia, el estado es initialState.
@@ -18,8 +19,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, breeds: action.payload };
     // case SEARCH_DOG:
     //   return { ...state, breeds: action.payload };
-    // case GET_DOG_DETAIL:
-    //   return { ...state, detail: action.payload };
+    case GET_DOG_DETAIL:
+      return { ...state, breedDetail: action.payload };
     default:
       return { ...state };
   }
