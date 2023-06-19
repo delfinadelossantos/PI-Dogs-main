@@ -4,6 +4,9 @@ export const SEARCH_DOG = "SEARCH_DOG";
 export const GET_DOG_DETAIL = "GET_DOG_DETAIL";
 export const FILTER_BY_SOURCE = "FILTER_BY_SOURCE";
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
+export const SORT_BREEDS = "SORT_BREEDS";
+export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
+export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";
 
 export const getDogs = () => {
   return async function (dispatch) {
@@ -30,6 +33,17 @@ export const getDogDetail = (id) => {
   };
 };
 
+export const getTemperaments = () => {
+  return async function (dispatch) {
+    const response = await axios.get("http://localhost:3001/temperaments");
+    dispatch({ type: GET_TEMPERAMENTS, payload: response.data });
+  };
+};
+
+export const filterByTemperament = (payload) => {
+  return { type: FILTER_BY_TEMPERAMENT, payload: payload };
+};
+
 export const cleanDetail = () => {
   return { type: CLEAN_DETAIL };
 };
@@ -40,8 +54,9 @@ export const filterBySource = () => {
   };
 };
 
-//FILTER_TEMPERAMENT
-//SORT_BREEDS
+export const sortBreeds = (sort) => {
+  return { type: SORT_BREEDS, payload: sort };
+};
+
 //SORT_WEIGHT
 //RESET_FILTERS
-//CREATE_BREED
