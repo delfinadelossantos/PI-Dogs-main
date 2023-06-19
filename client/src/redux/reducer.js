@@ -10,6 +10,7 @@ import {
   GET_TEMPERAMENTS,
   FILTER_BY_TEMPERAMENT,
   SORT_WEIGHT,
+  FILTER_BY_SOURCE,
 } from "./actions";
 
 //El estado global al principio de la aplicación es el initialState
@@ -69,6 +70,20 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         breeds: sortedBreeds,
+      };
+    case FILTER_BY_SOURCE:
+      const allDogs = state.allBreeds;
+      const source = action.payload;
+
+      const filteredBreeds =
+        source === "All"
+          ? allDogs
+          : allDogs.filter((breed) =>
+              source === "database" ? breed.createdInDb : !breed.createdInDb
+            );
+      return {
+        ...state,
+        breeds: filteredBreeds,
       };
     // case SORT_BREEDS:
     //   const sortedBreeds = [...state.breeds];

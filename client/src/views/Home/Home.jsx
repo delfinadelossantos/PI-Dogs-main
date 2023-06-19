@@ -7,6 +7,7 @@ import {
   getTemperaments,
   filterByTemperament,
   sortByWeight,
+  filterBySource,
 } from "../../redux/actions";
 
 const Home = () => {
@@ -31,6 +32,10 @@ const Home = () => {
     dispatch(sortByWeight(event.target.value));
   };
 
+  const filterBySourceHandler = (event) => {
+    dispatch(filterBySource(event.target.value));
+  };
+
   return (
     <>
       <h1>Home</h1>
@@ -52,7 +57,7 @@ const Home = () => {
             </option>
           ))}
         </select>
-        <select>
+        <select onChange={filterBySourceHandler}>
           <option value="All">All</option>
           <option value="api">API</option>
           <option value="database">Created</option>

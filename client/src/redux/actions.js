@@ -49,10 +49,8 @@ export const cleanDetail = () => {
   return { type: CLEAN_DETAIL };
 };
 
-export const filterBySource = () => {
-  return function (dispatch) {
-    dispatch({ type: FILTER_BY_SOURCE });
-  };
+export const filterBySource = (payload) => {
+  return { type: FILTER_BY_SOURCE, payload: payload };
 };
 
 export const sortByWeight = (sort) => {
