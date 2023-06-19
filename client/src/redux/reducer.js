@@ -9,6 +9,7 @@ import {
   SORT_BREEDS,
   GET_TEMPERAMENTS,
   FILTER_BY_TEMPERAMENT,
+  SORT_WEIGHT,
 } from "./actions";
 
 //El estado global al principio de la aplicación es el initialState
@@ -47,6 +48,28 @@ const rootReducer = (state = initialState, action) => {
                 : false
             );
       return { ...state, breeds: filtered };
+    case SORT_WEIGHT:
+      const breeds = state.breeds;
+      const sort = action.payload; // Valor del select
+
+      let sortedBreeds;
+      if (sort === "All") {
+        sortedBreeds = breeds;
+      } else if (sort === "min_weight") {
+        sortedBreeds = breeds
+          .filter((dog) => dog.min_weight !== null)
+          .sort((a, b) => a.min_weight - b.min_weight);
+      } else if (sort === "max_weight") {
+        sortedBreeds = breeds
+          .filter((dog) => dog.max_weight !== null)
+          .sort((a, b) => b.max_weight - a.max_weight);
+      } else {
+        sortedBreeds = breeds;
+      }
+      return {
+        ...state,
+        breeds: sortedBreeds,
+      };
     // case SORT_BREEDS:
     //   const sortedBreeds = [...state.breeds];
     // //sortedBreeds.sort((a,b)=> a.breed.localeCompare(b.breed));

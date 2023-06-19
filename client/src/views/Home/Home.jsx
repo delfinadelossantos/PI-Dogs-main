@@ -6,6 +6,7 @@ import {
   getDogs,
   getTemperaments,
   filterByTemperament,
+  sortByWeight,
 } from "../../redux/actions";
 
 const Home = () => {
@@ -17,16 +18,17 @@ const Home = () => {
   //monta o cuando cambia el array de dependencias.
   useEffect(() => {
     dispatch(getDogs());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(getTemperaments());
-  }, []);
+  }, [dispatch]);
 
   const temperaments = useSelector((state) => state.temperaments);
 
   const filterByTemperamentHandler = (event) => {
     dispatch(filterByTemperament(event.target.value));
+  };
+
+  const sortByWeightHandler = (event) => {
+    dispatch(sortByWeight(event.target.value));
   };
 
   return (
@@ -37,12 +39,12 @@ const Home = () => {
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </select>
-        <select>
-          <option value="All">All</option>
+        <select onChange={sortByWeightHandler}>
+          <option value="All">Sort by Weight</option>
           <option value="min_weight">Smallest to Biggest</option>
           <option value="max_weight">Biggest to Smallest</option>
         </select>
-        <select onChange={(event) => filterByTemperamentHandler(event)}>
+        <select onChange={filterByTemperamentHandler}>
           <option value="All">All Temperaments</option>
           {temperaments.map((temperament) => (
             <option key={temperament.id} value={temperament.temperament}>
