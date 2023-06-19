@@ -85,9 +85,27 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         breeds: filteredBreeds,
       };
-    // case SORT_BREEDS:
-    //   const sortedBreeds = [...state.breeds];
-    // //sortedBreeds.sort((a,b)=> a.breed.localeCompare(b.breed));
+    case SORT_BREEDS:
+      const alphabeticalDogs = state.allBreeds;
+      const value = action.payload; // Valor del select
+
+      const sortedDogs = [...alphabeticalDogs].sort((a, b) => {
+        const breedA = a.breed.toLowerCase();
+        const breedB = b.breed.toLowerCase();
+        if (breedA < breedB) {
+          return value === "A-Z" ? -1 : 1;
+        }
+        if (breedA > breedB) {
+          return value === "A-Z" ? 1 : -1;
+        }
+        return 0;
+      });
+
+      return {
+        ...state,
+        breeds: sortedDogs,
+      };
+
     default:
       return { ...state };
   }

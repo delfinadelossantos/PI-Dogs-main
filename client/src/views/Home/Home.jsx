@@ -8,6 +8,7 @@ import {
   filterByTemperament,
   sortByWeight,
   filterBySource,
+  sortBreeds,
 } from "../../redux/actions";
 
 const Home = () => {
@@ -36,11 +37,15 @@ const Home = () => {
     dispatch(filterBySource(event.target.value));
   };
 
+  const sortBreedsHandler = (event) => {
+    dispatch(sortBreeds(event.target.value));
+  };
+
   return (
     <>
       <h1>Home</h1>
       <div>
-        <select>
+        <select onChange={sortBreedsHandler}>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </select>
