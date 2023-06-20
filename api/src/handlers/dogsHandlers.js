@@ -18,14 +18,33 @@ const getAllDogsHandler = async (req, res) => {
   }
 };
 
+const isValidResult = (result) => {
+  if (result === null) {
+    return false;
+  }
+  if (result === undefined) {
+    return false;
+  }
+  if (result.length === 1) {
+    let temp = result[0];
+    if (temp !== null) {
+      if (temp.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
 const getDogByBreedHandler = async (req, res) => {
   const { name } = req.query;
   const breed = name.toLowerCase();
-  //console.log(breed);
   try {
     if (breed) {
       const results = await getDogByBreedController(breed);
-      if (results !== null || results !== undefined) {
+      if (isValidResult(results)) {
         res.status(200).json(results);
       } else {
         res.status(400).json({ error: "The requested breed does not exist" });

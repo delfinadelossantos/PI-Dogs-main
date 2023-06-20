@@ -1,6 +1,7 @@
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import SearchBar from "../../components/SearchBar/SearchBar";
 //Importo la action que debe despacharse:
 import {
   getDogs,
@@ -9,6 +10,7 @@ import {
   sortByWeight,
   filterBySource,
   sortBreeds,
+  resetFilters,
 } from "../../redux/actions";
 
 const Home = () => {
@@ -23,6 +25,8 @@ const Home = () => {
     dispatch(getTemperaments());
   }, [dispatch]);
 
+  //useSelector permite acceder al estado global sin necesidad de recibir props.
+  //Se suscribe al estado.
   const temperaments = useSelector((state) => state.temperaments);
 
   const filterByTemperamentHandler = (event) => {
@@ -41,9 +45,16 @@ const Home = () => {
     dispatch(sortBreeds(event.target.value));
   };
 
+  const resetFiltersHandler = (event) => {
+    dispatch(resetFilters(event.target.value));
+  };
+
   return (
     <>
       <h1>Home</h1>
+      <div>
+        <SearchBar />
+      </div>
       <div>
         <select onChange={sortBreedsHandler}>
           <option value="A-Z">A-Z</option>
@@ -67,6 +78,7 @@ const Home = () => {
           <option value="api">API</option>
           <option value="database">Created</option>
         </select>
+        <button onClick={resetFiltersHandler}>Reset Filters</button>
       </div>
       <CardsContainer />
     </>

@@ -11,6 +11,7 @@ import {
   FILTER_BY_TEMPERAMENT,
   SORT_WEIGHT,
   FILTER_BY_SOURCE,
+  RESET_FILTERS,
 } from "./actions";
 
 //El estado global al principio de la aplicación es el initialState
@@ -29,8 +30,8 @@ const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_DOGS:
       return { ...state, breeds: action.payload, allBreeds: action.payload };
-    // case SEARCH_DOG:
-    //   return { ...state, breeds: action.payload };
+    case SEARCH_DOG:
+      return { ...state, breeds: action.payload };
     case GET_DOG_DETAIL:
       return { ...state, breedDetail: action.payload };
     case CLEAN_DETAIL:
@@ -104,6 +105,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         breeds: sortedDogs,
+      };
+    case RESET_FILTERS:
+      return {
+        ...state,
+        breeds: state.allBreeds,
       };
 
     default:

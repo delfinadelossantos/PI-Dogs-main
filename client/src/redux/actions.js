@@ -8,6 +8,7 @@ export const SORT_BREEDS = "SORT_BREEDS";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";
 export const SORT_WEIGHT = "SORT_WEIGHT";
+export const RESET_FILTERS = "RESET_FILTERS";
 
 export const getDogs = () => {
   return async function (dispatch) {
@@ -61,4 +62,6 @@ export const sortBreeds = (sort) => {
   return { type: SORT_BREEDS, payload: sort };
 };
 
-//RESET_FILTERS
+export const resetFilters = () => {
+  return { type: RESET_FILTERS };
+};

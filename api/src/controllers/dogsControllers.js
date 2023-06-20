@@ -57,7 +57,24 @@ const getDogByBreedController = async (breed) => {
     await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${breed}`)
   ).data;
 
-  const apiBreed = cleanApiInfo(apiBreedSearch);
+  const apiBreed = apiBreedSearch.map((element) => {
+    const heightRange = element.height.metric.split(" - ");
+    const weightRange = element.weight.metric.split(" - ");
+
+    //Limpia el resultado quitando la imagen porque el endpoint no
+    //provee una.
+    return {
+      id: element.id,
+      breed: element.name,
+      min_height: parseInt(heightRange[0]),
+      max_height: parseInt(heightRange[1]),
+      min_weight: parseInt(weightRange[0]),
+      max_weight: parseInt(weightRange[1]),
+      life_span: element.life_span,
+      temperaments: element.temperament,
+      createdInDb: false,
+    };
+  });
   result.push(apiBreed);
 
   return result;
@@ -77,7 +94,7 @@ const getDogByIdController = async (id) => {
     const allDogs = await getAllBreedsController();
     const idInt = parseInt(id);
     for (let i = 0; i < allDogs.length; i++) {
-      if (allDogs[i].id === idInt) {
+      if (allDogs[i].id === id) {
         dog = allDogs[i];
         break;
       }
