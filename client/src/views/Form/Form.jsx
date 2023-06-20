@@ -8,10 +8,10 @@ const Form = () => {
 
   const [form, setForm] = useState({
     breed: "",
-    min_height: 0,
-    max_height: 0,
-    min_weight: 0,
-    max_weight: 0,
+    min_height: "",
+    max_height: "",
+    min_weight: "",
+    max_weight: "",
     life_span: "",
     temperaments: [],
     image: "",
@@ -19,10 +19,10 @@ const Form = () => {
 
   const [errors, setErrors] = useState({
     breed: "",
-    min_height: 0,
-    max_height: 0,
-    min_weight: 0,
-    max_weight: 0,
+    min_height: "",
+    max_height: "",
+    min_weight: "",
+    max_weight: "",
     life_span: "",
     temperaments: [],
     image: "",
